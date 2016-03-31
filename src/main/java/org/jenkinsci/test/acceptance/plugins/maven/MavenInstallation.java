@@ -52,8 +52,8 @@ public class MavenInstallation extends ToolInstallation {
 
     public static void installMaven(Jenkins jenkins, String name, String version) {
         waitForUpdates(jenkins, MavenInstallation.class);
-        jenkins.configure();
-        MavenInstallation maven = jenkins.getConfigPage().addTool(MavenInstallation.class);
+        jenkins.toolConfigure();
+        MavenInstallation maven = jenkins.getToolConfigPage().addTool(MavenInstallation.class);
         maven.name.set(name);
         maven.installVersion(version);
         jenkins.save();

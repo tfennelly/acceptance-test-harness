@@ -21,7 +21,11 @@ public class JenkinsConfig extends PageObject {
     public final Control addCloudButton = control("/jenkins-model-GlobalCloudConfiguration/hetero-list-add[cloud]");
 
     public JenkinsConfig(Jenkins jenkins) {
-        super(jenkins.injector, jenkins.url("configure"));
+        this(jenkins, "configure");
+    }
+
+    public JenkinsConfig(Jenkins jenkins, String url) {
+        super(jenkins.injector, jenkins.url(url));
         this.jenkins = jenkins;
     }
 

@@ -18,7 +18,6 @@ import com.google.inject.Injector;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 /**
  * Top-level object that acts as an entry point to various systems.
@@ -86,6 +85,12 @@ public class Jenkins extends Node {
         return new JenkinsConfig(this);
     }
 
+    /**
+     * Access global tool configuration page.
+     */
+    public JenkinsToolConfig getToolConfigPage() {
+        return new JenkinsToolConfig(this);
+    }
     /**
      * Visit login page.
      */

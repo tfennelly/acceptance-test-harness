@@ -68,6 +68,23 @@ public abstract class ContainerPageObject extends PageObject {
     }
 
     /**
+     * Open the global tool configuration page if not yet opened.
+     *
+     * @see #getConfigUrl()
+     */
+    public void toolConfigure() {
+
+        // TODO: figure out how do we need to go to /configure or /configureTools
+        // For backward compatibility. What version of Jenkins? How do we get the version of Jenkins?
+
+        if (driver.getCurrentUrl().equals(getToolConfigUrl().toExternalForm())) {
+            return;
+        }
+        visit(getToolConfigUrl());
+        elasticSleep(1000); // configure page requires some time to load
+    }
+
+    /**
      * Makes sure that the browser is currently opening the configuration page.
      */
     public void ensureConfigPage() {
@@ -76,6 +93,17 @@ public abstract class ContainerPageObject extends PageObject {
 
     public URL getConfigUrl() {
         return url("configure");
+    }
+
+    /**
+     * Makes sure that the browser is currently opening the tool configuration page.
+     */
+    public void ensureToolConfigPage() {
+        assertThat("tool config page is open", removeTrailingSlash(driver.getCurrentUrl()), is(removeTrailingSlash(getToolConfigUrl().toExternalForm())));
+    }
+
+    public URL getToolConfigUrl() {
+        return url("configureTools");
     }
 
     public void save() {
@@ -92,6 +120,13 @@ public abstract class ContainerPageObject extends PageObject {
      */
     public JsonNode getJson() {
         return getJson(null);
+    }
+
+    private String removeTrailingSlash(String string) {
+        if (string.endsWith("/") || string.endsWith("\\")) {
+            string = string.substring(0, string.length() - 1);
+        }
+        return string;
     }
 
     /**
